@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joyeux Noël !</title>
+  <style>
+    body {
+      background-color: #0b2b26;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+    }
+
+    .card {
+      background-color: #164a41;
+      padding: 25px;
+      border-radius: 15px;
+      display: inline-block;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      margin-top: 30px;
+      max-width: 90%;
+    }
+
+    #sapin {
+      width: 200px;
+      cursor: pointer;
+      transition: transform 0.3s, filter 0.5s;
+    }
+
+    #sapin:hover {
+      transform: scale(1.08);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Joyeux Noël !</h1>
+    <p>Clique sur le sapin pour changer ses couleurs !</p>
+    
+    <!-- Image du sapin -->
+    <img id="sapin" src="https://lycee-saintjoseph.eu/wp-content/uploads/2025/05/LOGO_SaintJOSEPH.jpg" alt="Sapin de Noël" onclick="changerCouleur()">
+    
+    <p>✨ Bonnes Fêtes de fin d'année ✨</p>
+  </div>
+
+  <script>
+    function changerCouleur() {
+      const sapin = document.getElementById('sapin');
+      // Génère une teinte de couleur aléatoire (0 à 360deg)
+      const couleurAleatoire = Math.floor(Math.random() * 360);
+      sapin.style.filter = `hue-rotate(${couleurAleatoire}deg) drop-shadow(0 0 12px #f1c40f)`;
+    }
+  </script>
+
+</body>
+</html>
