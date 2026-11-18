@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- À MODIFIER : Mettre le prénom dans le titre de l'onglet -->
+  <title>Carte de Noël de [PRÉNOM] - Lycée [NOM DU LYCÉE]</title>
+  
+  <style>
+    /* --- MISE EN PAGE GÉNÉRALE --- */
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 15px;
+    }
+
+    /* --- CARTE PRINCIPALE --- */
+    .carte {
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 25px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    /* --- EN-TÊTE LYCÉE --- */
+    .header-lycee {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .logo-lycee {
+      height: 45px;
+      border-radius: 5px;
+      background-color: white;
+      padding: 3px;
+    }
+
+    .nom-lycee {
+      font-size: 0.9rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #e0e0e0;
+    }
+
+    /* --- TEXTES --- */
+    h1 {
+      color: #f1c40f;
+      font-size: 1.8rem;
+      margin: 10px 0;
+    }
+
+    .prenom {
+      color: #2ecc71;
+      text-decoration: underline;
+    }
+
+    .consigne {
+      font-size: 0.9rem;
+      color: #bdc3c7;
+      font-style: italic;
+    }
+
+    /* --- SAPIN INTERACTIF --- */
+    svg {
+      width: 220px;
+      height: auto;
+      margin: 15px 0;
+      cursor: pointer;
+      filter: drop-shadow(0 5px 10px rgba(0,0,0,0.4));
+    }
+
+    .boule {
+      transition: fill 0.3s ease;
+    }
+
+    /* --- BOUTON --- */
+    button {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #c0392b;
+      transform: scale(1.05);
+    }
+
+    /* --- PIED DE PAGE --- */
+    footer {
+      margin-top: 20px;
+      font-size: 0.75rem;
+      color: #95a5a6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="carte">
+    
+    <!-- 1. MISE EN AVANT DU LYCÉE -->
+    <div class="header-lycee">
+      <!-- À MODIFIER : Remplacer src par le lien vers le logo du lycée (ou "logo.png") -->
+      <img src="https://via.placeholder.com/100x100.png?text=LOGO" alt="Logo du lycée" class="logo-lycee">
+      <!-- À MODIFIER : Nom du lycée et classe -->
+      <span class="nom-lycee">Lycée [Nom] • Seconde GT</span>
+    </div>
+
+    <!-- 2. PERSONNALISATION ÉLÈVE -->
+    <!-- À MODIFIER : Remplacer [PRÉNOM] -->
+    <h1>Joyeux Noël de la part de <span class="prenom">[PRÉNOM]</span> !</h1>
+    
+    <!-- À MODIFIER : Écrire un court message personnel -->
+    <p>Je vous souhaite de très belles fêtes de fin d'année remplies de joie et de réussite.</p>
+
+    <p class="consigne">👆 Touche le sapin ou le bouton pour illuminer les boules !</p>
+
+    <!-- 3. IMAGE INTERACTIVE (SAPIN SVG) -->
+    <svg viewBox="0 0 200 240" onclick="illuminerSapin()">
+      <!-- Tronc -->
+      <rect x="85" y="190" width="30" height="40" fill="#5D4037" />
+      <!-- Feuillage (3 triangles) -->
+      <polygon points="100,20 40,100 160,100" fill="#1E8449" />
+      <polygon points="100,60 30,145 170,145" fill="#239B56" />
+      <polygon points="100,105 20,195 180,195" fill="#28B463" />
+      <!-- Étoile -->
+      <polygon id="etoile" points="100,5 105,20 120,20 108,28 112,42 100,34 88,42 92,28 80,20 95,20" fill="#F1C40F" />
+      
+      <!-- Boules de Noël (modifiées par le JavaScript) -->
+      <circle class="boule" cx="80" cy="85" r="7" fill="#E74C3C" />
+      <circle class="boule" cx="120" cy="80" r="7" fill="#3498DB" />
+      <circle class="boule" cx="65" cy="130" r="8" fill="#F1C40F" />
+      <circle class="boule" cx="105" cy="125" r="8" fill="#9B59B6" />
+      <circle class="boule" cx="135" cy="135" r="8" fill="#E74C3C" />
+      <circle class="boule" cx="55" cy="175" r="9" fill="#3498DB" />
+      <circle class="boule" cx="95" cy="170" r="9" fill="#E67E22" />
+      <circle class="boule" cx="140" cy="178" r="9" fill="#F1C40F" />
+    </svg>
+
+    <br>
+    <button onclick="illuminerSapin()">✨ Changer les couleurs ✨</button>
+
+    <footer>
+      Projet SNT • Décembre 2026
+    </footer>
+  </div>
+
+  <!-- 4. INTERACTIVITÉ JAVASCRIPT -->
+  <script>
+    // Liste des couleurs possibles pour les boules
+    const couleurs = ["#FF0055", "#00FFCC", "#FFD700", "#FF6600", "#AA00FF", "#FFFFFF", "#00BFFF"];
+
+    function illuminerSapin() {
+      // On récupère toutes les boules du sapin
+      const boules = document.querySelectorAll('.boule');
+      
+      // Pour chaque boule, on choisit une couleur au hasard dans la liste
+      boules.forEach(boule => {
+        const indexHasard = Math.floor(Math.random() * couleurs.length);
+        boule.setAttribute('fill', couleurs[indexHasard]);
+      });
+
+      // On fait aussi scintiller l'étoile
+      const etoile = document.getElementById('etoile');
+      etoile.setAttribute('fill', etoile.getAttribute('fill') === '#F1C40F' ? '#FFFFFF' : '#F1C40F');
+    }
+  </script>
+
+</body>
+</html>
