@@ -3,190 +3,351 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- À MODIFIER : Mettre le prénom dans le titre de l'onglet -->
-  <title>Carte de Noël de [PRÉNOM] - Lycée [NOM DU LYCÉE]</title>
+  <!-- À MODIFIER : Mettre le prénom dans l'onglet -->
+  <title>Vœux de Noël • [PRÉNOM]</title>
   
+  <!-- Importation d'une jolie police festive depuis Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
   <style>
-    /* --- MISE EN PAGE GÉNÉRALE --- */
+    /* --- FOND HIVERNAL & FLOCONS --- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      background: radial-gradient(circle at top, #1b3b48 0%, #09151e 100%);
       color: #ffffff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 15px;
+      padding: 20px;
+      overflow-x: hidden;
+      position: relative;
     }
 
-    /* --- CARTE PRINCIPALE --- */
+    /* Animation des flocons en arrière-plan */
+    .flocon {
+      position: fixed;
+      top: -10px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1em;
+      user-select: none;
+      pointer-events: none;
+      animation: chute linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes chute {
+      0% { transform: translateY(-10vh) rotate(0deg); }
+      100% { transform: translateY(110vh) rotate(360deg); }
+    }
+
+    /* --- CARTE EN VERRE DÉPOLI (GLASSMORPHISM) --- */
     .carte {
-      background-color: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
-      padding: 25px;
-      max-width: 400px;
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 28px;
+      padding: 30px 25px;
+      max-width: 420px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     }
 
-    /* --- EN-TÊTE LYCÉE --- */
-    .header-lycee {
-      display: flex;
+    /* --- BADGE DU LYCÉE --- */
+    .badge-lycee {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      gap: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 8px 16px;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      margin-bottom: 20px;
     }
 
     .logo-lycee {
-      height: 45px;
-      border-radius: 5px;
-      background-color: white;
+      height: 36px;
+      width: 36px;
+      object-fit: contain;
+      background: white;
+      border-radius: 50%;
       padding: 3px;
     }
 
+    .infos-lycee {
+      text-align: left;
+      line-height: 1.2;
+    }
+
     .nom-lycee {
-      font-size: 0.9rem;
-      font-weight: bold;
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #f8c291;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #e0e0e0;
+      letter-spacing: 0.5px;
     }
 
-    /* --- TEXTES --- */
+    .classe-lycee {
+      font-size: 0.7rem;
+      color: #d1d8e0;
+    }
+
+    /* --- TITRE ET MESSAGE --- */
     h1 {
-      color: #f1c40f;
-      font-size: 1.8rem;
-      margin: 10px 0;
+      font-family: 'Mountains of Christmas', cursive;
+      font-size: 2.6rem;
+      color: #ffd32a;
+      text-shadow: 0 2px 10px rgba(255, 211, 42, 0.4);
+      margin-bottom: 8px;
+      line-height: 1.1;
     }
 
-    .prenom {
-      color: #2ecc71;
-      text-decoration: underline;
+    .prenom-eleve {
+      display: inline-block;
+      background: linear-gradient(90deg, #ff5e57, #ffdd59);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
     }
 
-    .consigne {
-      font-size: 0.9rem;
-      color: #bdc3c7;
-      font-style: italic;
+    .message {
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: #f1f2f6;
+      line-height: 1.5;
+      margin-bottom: 15px;
     }
 
-    /* --- SAPIN INTERACTIF --- */
-    svg {
-      width: 220px;
-      height: auto;
-      margin: 15px 0;
+    /* --- SAPIN DE NOËL ILLUSTRÉ --- */
+    .zone-sapin {
+      position: relative;
+      margin: 10px auto;
       cursor: pointer;
-      filter: drop-shadow(0 5px 10px rgba(0,0,0,0.4));
+      transition: transform 0.3s ease;
+    }
+
+    .zone-sapin:active {
+      transform: scale(0.97);
+    }
+
+    svg {
+      width: 240px;
+      height: auto;
+      overflow: visible;
     }
 
     .boule {
-      transition: fill 0.3s ease;
+      transition: fill 0.4s ease, filter 0.4s ease;
     }
 
-    /* --- BOUTON --- */
+    .etoile-anim {
+      transform-origin: 110px 25px;
+      animation: scintillement 2s infinite alternate;
+    }
+
+    @keyframes scintillement {
+      from { transform: scale(1); filter: drop-shadow(0 0 5px #ffd32a); }
+      to { transform: scale(1.15); filter: drop-shadow(0 0 15px #ffffff); }
+    }
+
+    /* --- BOUTONS D'ACTION --- */
+    .actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
     button {
-      background-color: #e74c3c;
+      background: linear-gradient(135deg, #e55039, #eb2f06);
       color: white;
       border: none;
-      padding: 12px 24px;
-      font-size: 1rem;
-      font-weight: bold;
-      border-radius: 25px;
+      padding: 12px 20px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-radius: 50px;
       cursor: pointer;
-      transition: transform 0.2s, background-color 0.2s;
-      margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(235, 47, 6, 0.4);
+      transition: all 0.25s ease;
     }
 
     button:hover {
-      background-color: #c0392b;
-      transform: scale(1.05);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(235, 47, 6, 0.6);
+    }
+
+    button.btn-auto {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: none;
+    }
+
+    button.btn-auto.actif {
+      background: linear-gradient(135deg, #20bf6b, #0fb9b1);
+      border-color: transparent;
     }
 
     /* --- PIED DE PAGE --- */
     footer {
-      margin-top: 20px;
-      font-size: 0.75rem;
-      color: #95a5a6;
+      margin-top: 22px;
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.5px;
     }
   </style>
 </head>
 <body>
 
+  <!-- Conteneur pour la neige générée en JS -->
+  <div id="neige-container"></div>
+
   <div class="carte">
     
-    <!-- 1. MISE EN AVANT DU LYCÉE -->
-    <div class="header-lycee">
-      <!-- À MODIFIER : Remplacer src par le lien vers le logo du lycée (ou "logo.png") -->
-      <img src="https://via.placeholder.com/100x100.png?text=LOGO" alt="Logo du lycée" class="logo-lycee">
-      <!-- À MODIFIER : Nom du lycée et classe -->
-      <span class="nom-lycee">Lycée [Nom] • Seconde GT</span>
+    <!-- 1. IDENTITÉ DU LYCÉE -->
+    <div class="badge-lycee">
+      <!-- À MODIFIER : Mettre "logo.png" si le logo est à la racine du dépôt -->
+      <img src="https://via.placeholder.com/100x100.png?text=LOGO" alt="Logo Lycée" class="logo-lycee">
+      <div class="infos-lycee">
+        <!-- À MODIFIER : Nom de ton lycée -->
+        <span class="nom-lycee">Lycée Saint-Joseph</span>
+        <span class="classe-lycee">Classe de Seconde GT • SNT</span>
+      </div>
     </div>
 
-    <!-- 2. PERSONNALISATION ÉLÈVE -->
-    <!-- À MODIFIER : Remplacer [PRÉNOM] -->
-    <h1>Joyeux Noël de la part de <span class="prenom">[PRÉNOM]</span> !</h1>
-    
-    <!-- À MODIFIER : Écrire un court message personnel -->
-    <p>Je vous souhaite de très belles fêtes de fin d'année remplies de joie et de réussite.</p>
+    <!-- 2. VŒUX PERSONNALISÉS -->
+    <h1>Joyeux Noël !</h1>
+    <!-- À MODIFIER : Prénom et message de l'élève -->
+    <p class="message">
+      <span class="prenom-eleve">[PRÉNOM]</span> vous souhaite de merveilleuses fêtes de fin d'année, pleines de magie et de bonheur !
+    </p>
 
-    <p class="consigne">👆 Touche le sapin ou le bouton pour illuminer les boules !</p>
+    <!-- 3. SAPIN VECTORIEL DÉTAILLÉ -->
+    <div class="zone-sapin" onclick="changerLumieres()" title="Clique sur le sapin !">
+      <svg viewBox="0 0 220 260">
+        <defs>
+          <!-- Dégradés pour donner du volume au sapin -->
+          <linearGradient id="vertFonce" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2ecc71" />
+            <stop offset="100%" stop-color="#145a32" />
+          </linearGradient>
+          <linearGradient id="vertClair" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#58d68d" />
+            <stop offset="100%" stop-color="#1e8449" />
+          </linearGradient>
+        </defs>
 
-    <!-- 3. IMAGE INTERACTIVE (SAPIN SVG) -->
-    <svg viewBox="0 0 200 240" onclick="illuminerSapin()">
-      <!-- Tronc -->
-      <rect x="85" y="190" width="30" height="40" fill="#5D4037" />
-      <!-- Feuillage (3 triangles) -->
-      <polygon points="100,20 40,100 160,100" fill="#1E8449" />
-      <polygon points="100,60 30,145 170,145" fill="#239B56" />
-      <polygon points="100,105 20,195 180,195" fill="#28B463" />
-      <!-- Étoile -->
-      <polygon id="etoile" points="100,5 105,20 120,20 108,28 112,42 100,34 88,42 92,28 80,20 95,20" fill="#F1C40F" />
-      
-      <!-- Boules de Noël (modifiées par le JavaScript) -->
-      <circle class="boule" cx="80" cy="85" r="7" fill="#E74C3C" />
-      <circle class="boule" cx="120" cy="80" r="7" fill="#3498DB" />
-      <circle class="boule" cx="65" cy="130" r="8" fill="#F1C40F" />
-      <circle class="boule" cx="105" cy="125" r="8" fill="#9B59B6" />
-      <circle class="boule" cx="135" cy="135" r="8" fill="#E74C3C" />
-      <circle class="boule" cx="55" cy="175" r="9" fill="#3498DB" />
-      <circle class="boule" cx="95" cy="170" r="9" fill="#E67E22" />
-      <circle class="boule" cx="140" cy="178" r="9" fill="#F1C40F" />
-    </svg>
+        <!-- Ombre au sol -->
+        <ellipse cx="110" cy="238" rx="75" ry="12" fill="rgba(0,0,0,0.4)" />
 
-    <br>
-    <button onclick="illuminerSapin()">✨ Changer les couleurs ✨</button>
+        <!-- Tronc -->
+        <rect x="96" y="200" width="28" height="36" rx="4" fill="#4e342e" />
+
+        <!-- Cadeaux au pied du sapin -->
+        <rect x="52" y="212" width="26" height="24" rx="3" fill="#e74c3c" />
+        <rect x="63" y="212" width="4" height="24" fill="#f1c40f" />
+        <rect x="142" y="216" width="22" height="20" rx="3" fill="#3498db" />
+        <rect x="151" y="216" width="4" height="20" fill="#ffffff" />
+
+        <!-- Branches du sapin (3 étages) -->
+        <path d="M110 110 L30 205 Q110 218 190 205 Z" fill="url(#vertFonce)" />
+        <path d="M110 65 L45 150 Q110 162 175 150 Z" fill="url(#vertClair)" />
+        <path d="M110 25 L60 98 Q110 108 160 98 Z" fill="url(#vertFonce)" />
+
+        <!-- Guirlande dorée -->
+        <path d="M72 82 Q110 98 148 82" fill="none" stroke="#ffd32a" stroke-width="2.5" stroke-dasharray="4,3" opacity="0.8" />
+        <path d="M55 135 Q110 155 165 135" fill="none" stroke="#ffd32a" stroke-width="2.5" stroke-dasharray="4,3" opacity="0.8" />
+        <path d="M40 190 Q110 212 180 190" fill="none" stroke="#ffd32a" stroke-width="2.5" stroke-dasharray="4,3" opacity="0.8" />
+
+        <!-- Étoile au sommet -->
+        <polygon class="etoile-anim" points="110,5 115,19 130,19 118,28 122,42 110,33 98,42 102,28 90,19 105,19" fill="#ffd32a" />
+
+        <!-- Boules de Noël lumineuses -->
+        <circle class="boule" cx="92" cy="75" r="6.5" fill="#ff3f34" />
+        <circle class="boule" cx="128" cy="78" r="6.5" fill="#0fbcf9" />
+        <circle class="boule" cx="75" cy="128" r="7.5" fill="#ffd32a" />
+        <circle class="boule" cx="112" cy="122" r="7.5" fill="#ff5e57" />
+        <circle class="boule" cx="145" cy="130" r="7.5" fill="#05c46b" />
+        <circle class="boule" cx="62" cy="182" r="8.5" fill="#0fbcf9" />
+        <circle class="boule" cx="98" cy="178" r="8.5" fill="#ffa801" />
+        <circle class="boule" cx="132" cy="184" r="8.5" fill="#ef5777" />
+        <circle class="boule" cx="162" cy="178" r="8.5" fill="#ffd32a" />
+      </svg>
+    </div>
+
+    <!-- 4. BOUTONS INTERACTIFS -->
+    <div class="actions">
+      <button onclick="changerLumieres()">✨ Illuminer</button>
+      <button id="btnAuto" class="btn-auto" onclick="toggleClignotement()">🔄 Guirlande auto</button>
+    </div>
 
     <footer>
-      Projet SNT • Décembre 2026
+      Carte numérique créée en SNT • Décembre 2026
     </footer>
   </div>
 
-  <!-- 4. INTERACTIVITÉ JAVASCRIPT -->
   <script>
-    // Liste des couleurs possibles pour les boules
-    const couleurs = ["#FF0055", "#00FFCC", "#FFD700", "#FF6600", "#AA00FF", "#FFFFFF", "#00BFFF"];
+    // Palette de couleurs néon pour les boules
+    const couleursNéon = ["#ff3f34", "#0fbcf9", "#ffd32a", "#05c46b", "#ff5e57", "#d2dae2", "#be2edd"];
+    let intervalleClignotement = null;
 
-    function illuminerSapin() {
-      // On récupère toutes les boules du sapin
+    // Fonction pour changer la couleur et ajouter un halo lumineux
+    function changerLumieres() {
       const boules = document.querySelectorAll('.boule');
-      
-      // Pour chaque boule, on choisit une couleur au hasard dans la liste
       boules.forEach(boule => {
-        const indexHasard = Math.floor(Math.random() * couleurs.length);
-        boule.setAttribute('fill', couleurs[indexHasard]);
+        const couleur = couleursNéon[Math.floor(Math.random() * couleursNéon.length)];
+        boule.setAttribute('fill', couleur);
+        boule.style.filter = `drop-shadow(0 0 8px ${couleur})`;
       });
-
-      // On fait aussi scintiller l'étoile
-      const etoile = document.getElementById('etoile');
-      etoile.setAttribute('fill', etoile.getAttribute('fill') === '#F1C40F' ? '#FFFFFF' : '#F1C40F');
     }
+
+    // Fonction pour activer/désactiver le clignotement automatique
+    function toggleClignotement() {
+      const bouton = document.getElementById('btnAuto');
+      if (intervalleClignotement) {
+        clearInterval(intervalleClignotement);
+        intervalleClignotement = null;
+        bouton.classList.remove('actif');
+        bouton.textContent = "🔄 Guirlande auto";
+      } else {
+        changerLumieres();
+        intervalleClignotement = setInterval(changerLumieres, 600);
+        bouton.classList.add('actif');
+        bouton.textContent = "⏸️ Stopper";
+      }
+    }
+
+    // Génération automatique de 25 flocons de neige
+    function creerNeige() {
+      const container = document.getElementById('neige-container');
+      for (let i = 0; i < 25; i++) {
+        const flocon = document.createElement('div');
+        flocon.className = 'flocon';
+        flocon.textContent = '❄';
+        flocon.style.left = Math.random() * 100 + 'vw';
+        flocon.style.animationDuration = (Math.random() * 5 + 5) + 's';
+        flocon.style.animationDelay = Math.random() * 5 + 's';
+        flocon.style.fontSize = (Math.random() * 12 + 10) + 'px';
+        container.appendChild(flocon);
+      }
+    }
+
+    // Lancement au chargement de la page
+    creerNeige();
+    changerLumieres();
   </script>
 
 </body>
