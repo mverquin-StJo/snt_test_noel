@@ -33,18 +33,19 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 16px;
       overflow-x: hidden;
     }
 
-    /* Flocons */
+    /* Flocons de neige */
     .flocon {
       position: fixed;
-      top: -10px;
-      color: rgba(255, 255, 255, 0.65);
+      top: -15px;
+      color: rgba(255, 255, 255, 0.85);
       pointer-events: none;
       animation: chute linear infinite;
-      z-index: 0;
+      z-index: 10;
+      text-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
     }
     @keyframes chute {
       from { transform: translateY(-10vh) rotate(0deg); }
@@ -55,73 +56,45 @@
     .carte {
       position: relative;
       z-index: 1;
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 28px;
-      padding: 26px 20px;
+      padding: 24px 16px;
       max-width: 420px;
       width: 100%;
       text-align: center;
       box-shadow: 0 25px 50px rgba(0, 0, 0, 0.65);
     }
 
-    /* Badge du Lycée */
-    .badge-lycee {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(0, 0, 0, 0.35);
-      padding: 6px 16px;
-      border-radius: 50px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      margin-bottom: 14px;
-    }
-
-    .logo-lycee {
-      height: 36px;
-      width: 36px;
-      background: white;
-      border-radius: 50%;
-      padding: 3px;
-      object-fit: contain;
-    }
-
-    .nom-lycee {
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: #f8c291;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
     h1 {
       font-family: 'Mountains of Christmas', cursive;
-      font-size: 2.6rem;
+      font-size: 2.5rem;
       color: var(--couleur-titre);
       text-shadow: 0 2px 12px rgba(255, 211, 42, 0.35);
       line-height: 1.1;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
     }
 
     .message {
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 300;
       color: #f1f2f6;
       line-height: 1.45;
-      margin-bottom: 10px;
+      margin-bottom: 22px;
+      padding: 0 10px;
+      word-wrap: break-word;
     }
 
     /* --- SCÈNE DU SAPIN + TRAIN EN ORBITE 3D --- */
     .scene-container {
       position: relative;
       width: 280px;
-      height: 310px;
+      height: 325px;
       margin: 0 auto;
     }
 
-    /* Le sapin est au plan z-index: 2 */
     .sapin-svg {
       position: relative;
       z-index: 2;
@@ -145,7 +118,7 @@
       pointer-events: none;
     }
 
-    /* Wagons du train qui tournent autour du sapin */
+    /* Wagons du train */
     .wagon {
       position: absolute;
       bottom: 24px;
@@ -164,35 +137,52 @@
       filter: drop-shadow(0 0 8px #ffffff) brightness(1.3);
     }
 
-    /* Étoile étincelante */
-    .etoile-groupe { cursor: pointer; }
-    .etoile {
-      transform-origin: 130px 26px;
-      animation: scintillerDoux 2s infinite alternate;
-    }
-    @keyframes scintillerDoux {
-      from { transform: scale(1); filter: drop-shadow(0 0 6px #ffd32a); }
-      to { transform: scale(1.1); filter: drop-shadow(0 0 14px #ffffff); }
+    /* --- GRAND HALO LUMINEUX & LOGO SAINT-JOSEPH --- */
+    .halo-lumiere {
+      transform-origin: 130px 18px;
+      opacity: 0.48;
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      animation: respirerHalo 3.5s ease-in-out infinite alternate;
     }
 
-    .rayons {
-      transform-origin: 130px 26px;
-      opacity: 0;
-      transition: opacity 0.4s;
-      pointer-events: none;
+    @keyframes respirerHalo {
+      from { transform: scale(0.95); opacity: 0.4; }
+      to { transform: scale(1.08); opacity: 0.6; }
     }
-    .mode-etincelant .rayons {
-      opacity: 1;
-      animation: tourner 5s linear infinite;
+
+    .mode-etincelant .halo-lumiere {
+      opacity: 0.95;
+      animation: rayonnerFort 1.4s ease-in-out infinite alternate;
     }
-    .mode-etincelant .etoile {
-      animation: flashRapide 0.4s infinite alternate;
+
+    @keyframes rayonnerFort {
+      from { transform: scale(1.05); opacity: 0.8; }
+      to { transform: scale(1.25); opacity: 1; }
     }
-    @keyframes flashRapide {
-      from { fill: #ffd32a; transform: scale(1.05); filter: drop-shadow(0 0 12px #ffd32a); }
-      to { fill: #ffffff; transform: scale(1.28); filter: drop-shadow(0 0 28px #ffffff); }
+
+    .etoile-groupe { cursor: pointer; }
+    
+    /* Animation douce au repos */
+    .etoile-logo {
+      transform-origin: 130px 20px;
+      animation: scintillerDoux 2.5s ease-in-out infinite alternate;
     }
-    @keyframes tourner { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes scintillerDoux {
+      from { transform: scale(1); filter: drop-shadow(0 0 6px rgba(255, 211, 42, 0.6)); }
+      to { transform: scale(1.05); filter: drop-shadow(0 0 16px #ffd32a); }
+    }
+
+    /* Animation active : brille et change de couleurs */
+    .mode-etincelant .etoile-logo {
+      animation: brillerCouleurs 2.2s linear infinite;
+    }
+    @keyframes brillerCouleurs {
+      0%   { transform: scale(1.05); filter: hue-rotate(0deg) brightness(1.2) drop-shadow(0 0 15px #ffd32a); }
+      33%  { transform: scale(1.14); filter: hue-rotate(110deg) brightness(1.35) drop-shadow(0 0 24px #00f2fe); }
+      66%  { transform: scale(1.08); filter: hue-rotate(240deg) brightness(1.35) drop-shadow(0 0 24px #ff758c); }
+      100% { transform: scale(1.05); filter: hue-rotate(360deg) brightness(1.2) drop-shadow(0 0 15px #ffd32a); }
+    }
 
     /* Boutons */
     .boutons {
@@ -230,7 +220,7 @@
     footer {
       margin-top: 18px;
       font-size: 0.72rem;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.6);
     }
   </style>
 </head>
@@ -240,26 +230,18 @@
 
   <div class="carte">
     
-    <!-- 1. IDENTITÉ DU LYCÉE -->
-    <div class="badge-lycee">
-      <img src="LOGO_SaintJOSEPH.jpg" alt="Logo Lycée" class="logo-lycee">
-      <span class="nom-lycee">Lycée Saint-Joseph • 2GT</span>
-    </div>
-
-    <!-- 2. VŒUX PERSONNALISÉS -->
+    <!-- 1. VŒUX PERSONNALISÉS -->
     <h1>Joyeux Noël !</h1>
     <p class="message">
       <strong>[PRÉNOM]</strong> vous souhaite de merveilleuses fêtes de fin d'année !
     </p>
 
-    <!-- 3. SCÈNE : SAPIN RÉALISTE + TRAIN AUTOUR DU SAPIN -->
+    <!-- 2. SCÈNE : SAPIN RÉALISTE + LOGO D'ORIGINE + TRAIN 3D -->
     <div class="scene-container" id="scene">
       
-      <!-- Voie ferrée ovale -->
       <div class="rails"></div>
 
-      <!-- Sapin réaliste -->
-      <svg id="sapin" class="sapin-svg" viewBox="0 0 260 300">
+      <svg id="sapin" class="sapin-svg" viewBox="0 0 260 310">
         <defs>
           <linearGradient id="brancheBas" x1="0%" y1="0%" x2="100%" y2="80%">
             <stop offset="0%" stop-color="#1e6b43" />
@@ -285,88 +267,96 @@
             <stop offset="0%" stop-color="#5d4037" />
             <stop offset="100%" stop-color="#2e1d18" />
           </linearGradient>
+
+          <!-- HALO RADIAL DOUX ET CHALEUREUX QUI RAYONNE SUR LE SAPIN -->
+          <radialGradient id="haloEtoile" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85" />
+            <stop offset="22%" stop-color="#ffd32a" stop-opacity="0.55" />
+            <stop offset="55%" stop-color="#f6b93b" stop-opacity="0.22" />
+            <stop offset="100%" stop-color="#ffd32a" stop-opacity="0" />
+          </radialGradient>
         </defs>
 
-        <!-- Ombre au sol -->
-        <ellipse cx="130" cy="278" rx="80" ry="11" fill="rgba(0,0,0,0.5)" />
+        <!-- Ombre portée au sol -->
+        <ellipse cx="130" cy="288" rx="80" ry="11" fill="rgba(0,0,0,0.5)" />
         <!-- Tronc -->
-        <rect x="115" y="238" width="30" height="40" rx="4" fill="url(#troncBois)" />
+        <rect x="115" y="248" width="30" height="40" rx="4" fill="url(#troncBois)" />
 
         <!-- Branches du sapin (clic = allumer les boules) -->
         <g onclick="toggleBoules()">
-          <path d="M130 165 L28 246 Q75 260 130 248 Q185 260 232 246 Z" fill="url(#brancheBas)" />
-          <path d="M130 115 L42 196 Q85 210 130 198 Q175 210 218 196 Z" fill="url(#brancheMilieu)" />
-          <path d="M130 70 L60 144 Q95 156 130 146 Q165 156 200 144 Z" fill="url(#brancheHaut)" />
-          <path d="M130 30 L78 96 Q105 106 130 98 Q155 106 182 96 Z" fill="url(#brancheHaut)" />
+          <path d="M130 175 L28 256 Q75 270 130 258 Q185 270 232 256 Z" fill="url(#brancheBas)" />
+          <path d="M130 125 L42 206 Q85 220 130 208 Q175 220 218 206 Z" fill="url(#brancheMilieu)" />
+          <path d="M130 80 L60 154 Q95 166 130 156 Q165 166 200 154 Z" fill="url(#brancheHaut)" />
+          <path d="M130 48 L78 106 Q105 116 130 108 Q155 116 182 106 Z" fill="url(#brancheHaut)" />
 
           <!-- Guirlande dorée -->
-          <path d="M88 85 Q135 102 175 88" fill="none" stroke="#ffd32a" stroke-width="2" stroke-dasharray="3,4" opacity="0.85" />
-          <path d="M65 138 Q130 162 195 140" fill="none" stroke="#ffd32a" stroke-width="2.5" stroke-dasharray="3,4" opacity="0.85" />
-          <path d="M48 190 Q130 218 212 192" fill="none" stroke="#ffd32a" stroke-width="2.5" stroke-dasharray="3,4" opacity="0.85" />
-          <path d="M38 238 Q130 264 222 238" fill="none" stroke="#ffd32a" stroke-width="3" stroke-dasharray="3,4" opacity="0.85" />
+          <path d="M88 95 Q135 112 175 98" fill="none" stroke="#ffd32a" stroke-width="2" stroke-dasharray="3,4" opacity="0.85" />
+          <path d="M65 148 Q130 172 195 150" fill="none" stroke="#ffd32a" stroke-width="2.5" stroke-dasharray="3,4" opacity="0.85" />
+          <path d="M48 200 Q130 228 212 202" fill="none" stroke="#ffd32a" stroke-width="2.5" stroke-dasharray="3,4" opacity="0.85" />
+          <path d="M38 248 Q130 274 222 248" fill="none" stroke="#ffd32a" stroke-width="3" stroke-dasharray="3,4" opacity="0.85" />
 
-          <!-- Boules 3D pures et élégantes -->
-          <g class="boule-3d"><circle cx="108" cy="80" r="8" fill="var(--boule-1)" /><circle cx="108" cy="80" r="8" fill="url(#reflet3D)" /></g>
-          <g class="boule-3d"><circle cx="152" cy="84" r="8" fill="var(--boule-2)" /><circle cx="152" cy="84" r="8" fill="url(#reflet3D)" /></g>
+          <!-- Boules 3D -->
+          <g class="boule-3d"><circle cx="108" cy="90" r="8" fill="var(--boule-1)" /><circle cx="108" cy="90" r="8" fill="url(#reflet3D)" /></g>
+          <g class="boule-3d"><circle cx="152" cy="94" r="8" fill="var(--boule-2)" /><circle cx="152" cy="94" r="8" fill="url(#reflet3D)" /></g>
           
-          <g class="boule-3d"><circle cx="88" cy="132" r="9.5" fill="var(--boule-3)" /><circle cx="88" cy="132" r="9.5" fill="url(#reflet3D)" /></g>
-          <g class="boule-3d"><circle cx="132" cy="128" r="9.5" fill="var(--boule-1)" /><circle cx="132" cy="128" r="9.5" fill="url(#reflet3D)" /></g>
-          <g class="boule-3d"><circle cx="172" cy="136" r="9.5" fill="var(--boule-2)" /><circle cx="172" cy="136" r="9.5" fill="url(#reflet3D)" /></g>
+          <g class="boule-3d"><circle cx="88" cy="142" r="9.5" fill="var(--boule-3)" /><circle cx="88" cy="142" r="9.5" fill="url(#reflet3D)" /></g>
+          <g class="boule-3d"><circle cx="132" cy="138" r="9.5" fill="var(--boule-1)" /><circle cx="132" cy="138" r="9.5" fill="url(#reflet3D)" /></g>
+          <g class="boule-3d"><circle cx="172" cy="146" r="9.5" fill="var(--boule-2)" /><circle cx="172" cy="146" r="9.5" fill="url(#reflet3D)" /></g>
 
-          <g class="boule-3d"><circle cx="74" cy="184" r="11" fill="var(--boule-2)" /><circle cx="74" cy="184" r="11" fill="url(#reflet3D)" /></g>
-          <g class="boule-3d"><circle cx="115" cy="180" r="11" fill="var(--boule-3)" /><circle cx="115" cy="180" r="11" fill="url(#reflet3D)" /></g>
-          <g class="boule-3d"><circle cx="155" cy="186" r="11" fill="var(--boule-1)" /><circle cx="155" cy="186" r="11" fill="url(#reflet3D)" /></g>
-          <g class="boule-3d"><circle cx="190" cy="182" r="10" fill="var(--boule-3)" /><circle cx="190" cy="182" r="10" fill="url(#reflet3D)" /></g>
+          <g class="boule-3d"><circle cx="74" cy="194" r="11" fill="var(--boule-2)" /><circle cx="74" cy="194" r="11" fill="url(#reflet3D)" /></g>
+          <g class="boule-3d"><circle cx="115" cy="190" r="11" fill="var(--boule-3)" /><circle cx="115" cy="190" r="11" fill="url(#reflet3D)" /></g>
+          <g class="boule-3d"><circle cx="155" cy="196" r="11" fill="var(--boule-1)" /><circle cx="155" cy="196" r="11" fill="url(#reflet3D)" /></g>
+          <g class="boule-3d"><circle cx="190" cy="192" r="10" fill="var(--boule-3)" /><circle cx="190" cy="192" r="10" fill="url(#reflet3D)" /></g>
 
-          <g class="boule-3d"><circle cx="62" cy="232" r="12" fill="var(--boule-1)" /><circle cx="62" cy="232" r="12" fill="url(#reflet3D)" /></g>
-          <g class="boule-3d"><circle cx="105" cy="236" r="12" fill="var(--boule-2)" /><circle cx="105" cy="236" r="12" fill="url(#reflet3D)" /></g>
-          <g class="boule-3d"><circle cx="152" cy="234" r="12" fill="var(--boule-3)" /><circle cx="152" cy="234" r="12" fill="url(#reflet3D)" /></g>
-          <g class="boule-3d"><circle cx="198" cy="230" r="12" fill="var(--boule-2)" /><circle cx="198" cy="230" r="12" fill="url(#reflet3D)" /></g>
+          <g class="boule-3d"><circle cx="62" cy="242" r="12" fill="var(--boule-1)" /><circle cx="62" cy="242" r="12" fill="url(#reflet3D)" /></g>
+          <g class="boule-3d"><circle cx="105" cy="246" r="12" fill="var(--boule-2)" /><circle cx="105" cy="246" r="12" fill="url(#reflet3D)" /></g>
+          <g class="boule-3d"><circle cx="152" cy="244" r="12" fill="var(--boule-3)" /><circle cx="152" cy="244" r="12" fill="url(#reflet3D)" /></g>
+          <g class="boule-3d"><circle cx="198" cy="240" r="12" fill="var(--boule-2)" /><circle cx="198" cy="240" r="12" fill="url(#reflet3D)" /></g>
         </g>
 
-        <!-- ÉTOILE ÉTINCELANTE -->
+        <!-- LOGO D'ORIGINE + GRAND HALO LUMINEUX -->
         <g id="groupe-etoile" class="etoile-groupe" onclick="activerEtoile()">
-          <g class="rayons">
-            <line x1="130" y1="-12" x2="130" y2="64" stroke="#ffffff" stroke-width="2" />
-            <line x1="92" y1="26" x2="168" y2="26" stroke="#ffffff" stroke-width="2" />
-            <line x1="103" y1="-1" x2="157" y2="53" stroke="#ffd32a" stroke-width="1.5" />
-            <line x1="157" y1="-1" x2="103" y2="53" stroke="#ffd32a" stroke-width="1.5" />
+          <!-- Grand halo doux qui rayonne largement sur le sapin -->
+          <circle class="halo-lumiere" cx="130" cy="18" r="140" fill="url(#haloEtoile)" />
+          
+          <!-- Vérifie sur GitHub si ton nouveau fichier détouré finit par .png ou .jpg -->
+          <g class="etoile-logo">
+            <image 
+              href="https://mverquin-stjo.github.io/snt_test_noel/LOGO_SaintJOSEPH.jpg" 
+              x="82" y="-12" width="96" height="62" 
+              preserveAspectRatio="xMidYMid meet" />
           </g>
-          <polygon class="etoile" points="130,4 136,19 152,19 139,29 144,44 130,35 116,44 121,29 108,19 124,19" fill="#ffd32a" />
         </g>
       </svg>
 
-      <!-- Le JavaScript va insérer ici les wagons du train thématique -->
     </div>
 
-    <!-- 4. BOUTONS INTERACTIFS -->
+    <!-- 3. BOUTONS INTERACTIFS -->
     <div class="boutons">
       <button onclick="toggleBoules()">✨ Boules</button>
       <button id="btn-etoile" class="btn-secondaire" onclick="activerEtoile()">⭐ Étoile</button>
       <button id="btn-train" class="btn-secondaire actif" onclick="toggleTrain()">🚂 Train en marche</button>
     </div>
 
-    <footer>Projet SNT • Lycée Saint-Joseph</footer>
+    <!-- 4. SIGNATURE UNIQUE EN BAS -->
+    <footer>Projet SNT • Lycée Saint-Joseph Hazebrouck • 2GT</footer>
   </div>
 
   <script>
     /* =====================================================================
        2. PERSONNALISATION DU TRAIN THÉMATIQUE (À MODIFIER PAR L'ÉLÈVE)
-       L'élève choisit son thème et modifie les éléments du convoi !
        Exemples :
-       - Père Noël : ["🦌", "🛷", "🎅", "🎁", "🧸"]
+       - Père Noël : ["🚂", "🎅", "🧸", "🎁", "🦌"]
        - Super Mario : ["🏎️", "🍄", "⭐", "🪙", "🐢"]
        - Harry Potter : ["🚂", "⚡", "🦉", "🪄", "🧹"]
        - Donkey Kong : ["🛒", "🦍", "🍌", "🛢️", "🌴"]
        ===================================================================== */
     const convoiTrain = ["🚂", "🎅", "🧸", "🎁", "🦌"];
     
-    // Vitesse du train (plus le chiffre est grand, plus il va vite)
     let vitesseTrain = 0.025; 
     let trainEnMarche = true;
     let angleTrain = 0;
 
-    // Création des wagons sur la scène
     const scene = document.getElementById('scene');
     const elementsWagons = [];
 
@@ -378,33 +368,27 @@
       elementsWagons.push(div);
     });
 
-    // Animation 3D en orbite autour du pied du sapin
     function animerTrain() {
       if (trainEnMarche) {
         angleTrain += vitesseTrain;
       }
 
       elementsWagons.forEach((wagon, index) => {
-        // Décalage entre chaque wagon du convoi (le wagon 0 est en tête)
         const angleWagon = angleTrain - (index * 0.32);
-        
-        // Coordonnées de l'ellipse autour du sapin
-        const rayonX = 122; // Largeur du circuit
-        const rayonY = 22;  // Profondeur 3D du circuit
+        const rayonX = 122;
+        const rayonY = 22;
         
         const x = Math.cos(angleWagon) * rayonX;
         const y = Math.sin(angleWagon) * rayonY;
 
-        // Positionnement
         wagon.style.transform = `translate(calc(-50% + ${x}px), ${y}px)`;
 
-        // Gestion de la profondeur 3D : devant le sapin (sin > 0) ou derrière (sin < 0)
         if (Math.sin(angleWagon) > 0) {
-          wagon.style.zIndex = 3; // Passe DEVANT le tronc du sapin
+          wagon.style.zIndex = 3;
           wagon.style.opacity = 1;
           wagon.style.fontSize = "28px";
         } else {
-          wagon.style.zIndex = 1; // Passe DERRIÈRE le sapin
+          wagon.style.zIndex = 1;
           wagon.style.opacity = 0.55;
           wagon.style.fontSize = "21px";
         }
@@ -413,7 +397,6 @@
       requestAnimationFrame(animerTrain);
     }
 
-    // Bouton Démarrer / Arrêter le train
     function toggleTrain() {
       const bouton = document.getElementById('btn-train');
       trainEnMarche = !trainEnMarche;
@@ -421,12 +404,10 @@
       bouton.textContent = trainEnMarche ? "🚂 Train en marche" : "⏸️ Train arrêté";
     }
 
-    // Allumer / Éteindre les boules 3D
     function toggleBoules() {
       document.getElementById('sapin').classList.toggle('boules-allumees');
     }
 
-    // Activer l'étoile étincelante
     let etoileActive = false;
     function activerEtoile() {
       const groupeEtoile = document.getElementById('groupe-etoile');
@@ -436,21 +417,20 @@
       bouton.classList.toggle('actif', etoileActive);
     }
 
-    // Flocons de neige
     function lancerNeige() {
       const zoneNeige = document.getElementById('neige');
-      for (let i = 0; i < 25; i++) {
+      for (let i = 0; i < 30; i++) {
         const flocon = document.createElement('div');
         flocon.className = 'flocon';
         flocon.textContent = '❄';
         flocon.style.left = Math.random() * 100 + 'vw';
         flocon.style.animationDuration = (Math.random() * 5 + 5) + 's';
-        flocon.style.fontSize = (Math.random() * 12 + 10) + 'px';
+        flocon.style.animationDelay = Math.random() * 5 + 's';
+        flocon.style.fontSize = (Math.random() * 12 + 12) + 'px';
         zoneNeige.appendChild(flocon);
       }
     }
 
-    // Lancement
     lancerNeige();
     animerTrain();
   </script>
